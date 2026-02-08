@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemoDental | Clínica Dental Inteligente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #007bff;
+            --secondary: #00d4ff;
+            --dark: #0f172a;
+            --bg: #f8fafc;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: radial-gradient(circle at top right, #e0f2fe, #f8fafc);
+            color: var(--dark);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            animation: fadeIn 1s ease-out;
+        }
+        .logo-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 10px 15px rgba(0,123,255,0.3));
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+        p {
+            font-size: 1.25rem;
+            color: #475569;
+            margin: 20px 0 40px;
+            line-height: 1.6;
+        }
+        .features {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .feature-tag {
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Estilos personalizados para el chat de n8n */
+        #n8n-chat-container {
+            --n8n-chat-primary-color: var(--primary);
+            --n8n-chat-text-color: var(--dark);
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="hero">
+        <span class="logo-icon">🦷</span>
+        <h1>MemoDental</h1>
+        <p>Tecnología de vanguardia para tu salud bucal.<br>Pregunta por nuestros servicios y agenda tu cita al instante con nuestra IA.</p>
+        
+        <div class="features">
+            <span class="feature-tag">✨ Limpiezas $45</span>
+            <span class="feature-tag">📅 Citas Online</span>
+            <span class="feature-tag">📍 El Salvador</span>
+        </div>
+
+        <div style="color: var(--primary); font-weight: 600;">
+            ¡Haz clic en el chat azul para comenzar! 👇
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js"></script>
+    <script>
+        createChat({
+            webhookUrl: 'https://guillermoguevara887.app.n8n.cloud/webhook/chat_memo_dental',
+            webhookConfig: {
+                method: 'POST'
+            },
+            title: 'Asistente MemoDental',
+            welcomeMessage: '¡Hola! Bienvenido a MemoDental 🦷. Soy tu asistente inteligente. ¿Te gustaría conocer nuestros precios o agendar una cita ahora mismo?',
+            placeholder: 'Escribe tu consulta aquí...',
+            showWelcomeMessage: true,
+            backgroundColor: '#007bff',
+            mainColor: '#007bff',
+            bubbleColor: '#007bff',
+            bubbleAvatarUrl: '',
+        });
+    </script>
+</body>
+</html>
