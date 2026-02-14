@@ -1,115 +1,277 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MemoDental | Clínica Dental Inteligente</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #007bff;
-            --secondary: #00d4ff;
-            --dark: #0f172a;
-            --bg: #f8fafc;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            background: radial-gradient(circle at top right, #e0f2fe, #f8fafc);
-            color: var(--dark);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .hero {
-            text-align: center;
-            max-width: 800px;
-            padding: 40px;
-            animation: fadeIn 1s ease-out;
-        }
-        .logo-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            display: inline-block;
-            filter: drop-shadow(0 10px 15px rgba(0,123,255,0.3));
-        }
-        h1 {
-            font-size: 3.5rem;
-            margin: 0;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-        p {
-            font-size: 1.25rem;
-            color: #475569;
-            margin: 20px 0 40px;
-            line-height: 1.6;
-        }
-        .features {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-        .feature-tag {
-            background: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            border: 1px solid #e2e8f0;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Estilos personalizados para el chat de n8n */
-        #n8n-chat-container {
-            --n8n-chat-primary-color: var(--primary);
-            --n8n-chat-text-color: var(--dark);
-        }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <title>Memo Dental — Asistente Virtual</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 450px;
+      height: 85vh;
+      background: #ffffff;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #1f6fd8;
+      color: white;
+      padding: 16px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+    }
+
+    .clear-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: background 0.3s;
+    }
+
+    .clear-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .msg {
+      max-width: 85%;
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      border-radius: 15px;
+      font-size: 14px;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+
+    .msg.bot {
+      background: #e9e9eb;
+      color: #1a1a1a;
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+    }
+
+    .msg.user {
+      background: #1f6fd8;
+      color: #fff;
+      align-self: flex-end;
+      border-bottom-right-radius: 2px;
+    }
+
+    .typing {
+      font-size: 13px;
+      color: #555;
+      font-style: italic;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #eee;
+      padding: 15px;
+      background: #fff;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 25px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .chat-input button {
+      margin-left: 10px;
+      background: #1f6fd8;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .chat-input button:hover {
+      background: #1557ad;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="hero">
-        <span class="logo-icon">🦷</span>
-        <h1>MemoDental</h1>
-        <p>Tecnología de vanguardia para tu salud bucal.<br>Pregunta por nuestros servicios y agenda tu cita al instante con nuestra IA.</p>
-        
-        <div class="features">
-            <span class="feature-tag">✨ Limpiezas $45</span>
-            <span class="feature-tag">📅 Citas Online</span>
-            <span class="feature-tag">📍 El Salvador</span>
-        </div>
-
-        <div style="color: var(--primary); font-weight: 600;">
-            ¡Haz clic en el chat azul para comenzar! 👇
-        </div>
+  <div class="chat-container">
+    <div class="chat-header">
+      <span>Memo Dental</span>
+      <button class="clear-btn" onclick="clearChat()">Limpiar Chat</button>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.js"></script>
-    <script>
-        createChat({
-            webhookUrl: 'https://guillermoguevara887.app.n8n.cloud/webhook/chat_memo_dental',
-            webhookConfig: {
-                method: 'POST'
-            },
-            title: 'Asistente MemoDental',
-            welcomeMessage: '¡Hola! Bienvenido a MemoDental 🦷. Soy tu asistente inteligente. ¿Te gustaría conocer nuestros precios o agendar una cita ahora mismo?',
-            placeholder: 'Escribe tu consulta aquí...',
-            showWelcomeMessage: true,
-            backgroundColor: '#007bff',
-            mainColor: '#007bff',
-            bubbleColor: '#007bff',
-            bubbleAvatarUrl: '',
+    <div class="chat-messages" id="messages">
+      <div class="msg bot">
+        👋 ¡Hola! Soy el asistente virtual de Memo Dental.<br><br>
+        Puedo ayudarte con servicios, precios, horarios y citas.<br>
+        ¿En qué puedo ayudarte?
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input type="text" id="text" placeholder="Escribe tu mensaje..." autocomplete="off"
+        onkeydown="if(event.key==='Enter') send()" />
+      <button onclick="send()">➤</button>
+    </div>
+  </div>
+
+  <audio id="notifySound">
+    <source src="https://notificationsounds.com/storage/sounds/file-sounds-1153-pristine.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // ✅ CONFIGURACIÓN n8n
+    const WEBHOOK_URL = "https://guillermoguevara887.app.n8n.cloud/webhook/chat_memo_dental";
+
+    // Función para generar un ID de sesión aleatorio
+    function generateSessionId() {
+      return 'session_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Recuperar o crear sesión al cargar
+    let sessionId = localStorage.getItem('chat_session_id') || generateSessionId();
+    localStorage.setItem('chat_session_id', sessionId);
+
+    let typingIndicator = null;
+
+    async function send() {
+      const input = document.getElementById("text");
+      const message = input.value.trim();
+      if (!message) return;
+
+      addMessage(message, "user");
+      input.value = "";
+
+      showTyping();
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: message,    // Coincide con el Prompt en n8n
+            sessionId: sessionId // Necesario para el nodo Simple Memory
+          })
         });
-    </script>
+
+        if (!response.ok) throw new Error("Error en la conexión");
+
+        const data = await response.json();
+        hideTyping();
+
+        // Intentamos leer 'output' (n8n Agent) o 'reply' (Webhook estándar)
+        let botResponse = "";
+
+        if (Array.isArray(data) && data.length > 0) {
+          botResponse = data[0].output || data[0].reply;
+        } else {
+          botResponse = data.output || data.reply;
+        }
+
+        // Si sigue vacío, ponemos el mensaje de error
+        if (!botResponse) {
+          botResponse = "No pude procesar la respuesta del servidor.";
+        }
+        playSound();
+        addMessage(botResponse, "bot");
+
+      } catch (error) {
+        console.error(error);
+        hideTyping();
+        addMessage("❌ No pude conectar con el asistente. Asegúrate de que el flujo en n8n esté activo.", "bot");
+      }
+    }
+
+
+
+
+
+
+    function clearChat() {
+      if (confirm("¿Seguro que quieres reiniciar la conversación?")) {
+        // Borrar mensajes visualmente
+        const messagesDiv = document.getElementById("messages");
+        messagesDiv.innerHTML = `
+                    <div class="msg bot">
+                        👋 Memoria reiniciada.<br>
+                        Soy el asistente de Memo Dental. ¿En qué puedo ayudarte hoy?
+                    </div>`;
+
+        // GENERAR NUEVO SESSION ID (Esto reinicia la memoria en n8n)
+        sessionId = generateSessionId();
+        localStorage.setItem('chat_session_id', sessionId);
+        console.log("Nueva sesión iniciada:", sessionId);
+      }
+    }
+
+    function addMessage(text, sender) {
+      const messages = document.getElementById("messages");
+      const div = document.createElement("div");
+      div.className = "msg " + sender;
+      div.innerHTML = text.replace(/\n/g, "<br>");
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showTyping() {
+      const messages = document.getElementById("messages");
+      typingIndicator = document.createElement("div");
+      typingIndicator.className = "typing";
+      typingIndicator.textContent = "Memo Dental está escribiendo...";
+      messages.appendChild(typingIndicator);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function hideTyping() {
+      if (typingIndicator) {
+        typingIndicator.remove();
+        typingIndicator = null;
+      }
+    }
+
+    function playSound() {
+      const sound = document.getElementById("notifySound");
+      sound.play().catch(() => { });
+    }
+  </script>
+
 </body>
+
 </html>
